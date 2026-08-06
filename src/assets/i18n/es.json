@@ -6,7 +6,7 @@
   "past": "Anteriores",
   "searchCargoOrders": "Buscar órdenes de carga",
   "resume": "Resumen",
-  "pickupTime": "Es momento de recolectar",
+  "pickupTime": "Iniciar recolección en",
   "pickupReadOnly": "Esta acción no puede guardarse porque la API mock es de solo lectura.",
   "trackOrder": "Rastrear orden",
   "trackingUnavailable": "El rastreo en tiempo real no está disponible en la API mock.",

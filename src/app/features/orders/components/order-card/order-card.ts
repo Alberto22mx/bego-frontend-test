@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { OrderRoute } from '../order-route/order-route';
 @Component({
   selector: 'app-order-card',
   standalone: true,
-  imports: [Avatar, OrderRoute, RouterLink],
+  imports: [Avatar, DatePipe, OrderRoute, RouterLink],
   templateUrl: './order-card.html',
   styleUrl: './order-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

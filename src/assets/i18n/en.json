@@ -6,7 +6,7 @@
   "past": "Past",
   "searchCargoOrders": "Search cargo orders",
   "resume": "Resume",
-  "pickupTime": "It’s time for pickup",
+  "pickupTime": "Start pickup in",
   "pickupReadOnly": "This action cannot be saved because the mock API is read-only.",
   "trackOrder": "Track Order",
   "trackingUnavailable": "Real-time tracking is not available in the mock API.",

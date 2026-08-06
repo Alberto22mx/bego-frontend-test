@@ -22,8 +22,11 @@
 
     <div class="order-card__actions">
       @if (isReadyForPickup(order())) {
-        <p class="pickup-action">
-          {{ i18n.translate('pickupTime') }}
+        <p class="pickup-action pickup-info">
+          <span>{{ i18n.translate('pickupTime') }}</span>
+          <time [attr.datetime]="order().startsAt.toISOString()">
+            {{ order().startsAt | date: 'shortTime' }}
+          </time>
         </p>
       }
 
