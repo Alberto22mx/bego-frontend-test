@@ -25,7 +25,12 @@ export class OrderCard {
     return order.statusCode === 1 && order.destinations.at(0)?.navigationAvailable === true;
   }
 
-  protected showPickupLimitation(): void {
+  protected stopActionPropagation(event: Event): void {
+    event.stopPropagation();
+  }
+
+  protected showPickupLimitation(event: Event): void {
+    event.stopPropagation();
     this.pickupMessageVisible.set(true);
   }
 }
