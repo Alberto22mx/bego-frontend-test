@@ -26,8 +26,30 @@ export interface OrderSummaryDto {
 
 export interface OrderDetailDto {
   readonly _id: string;
+  readonly status: number;
   readonly order_number: string;
   readonly reference_number?: string | null;
   readonly start_date: number;
   readonly end_date: number;
+  readonly driver: {
+    readonly nickname: string;
+    readonly thumbnail: string | null;
+  };
+  readonly destinations: readonly OrderDetailDestinationDto[];
+  readonly status_list: {
+    readonly pickup: readonly OrderStatusStepDto[];
+    readonly dropoff: readonly OrderStatusStepDto[];
+  };
+}
+
+export interface OrderDetailDestinationDto {
+  readonly address: string;
+  readonly startDate: number;
+  readonly endDate?: number;
+  readonly status_string: string;
+}
+
+export interface OrderStatusStepDto {
+  readonly active: boolean;
+  readonly status: string;
 }

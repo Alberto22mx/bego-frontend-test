@@ -1,0 +1,15 @@
+<ol class="timeline" aria-label="Order progress">
+  @for (step of steps(); track step.label; let last = $last) {
+    <li class="timeline__step" [class.timeline__step--completed]="step.completed">
+      <span class="timeline__marker" aria-hidden="true">
+        @if (step.completed) {
+          <svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-9" /></svg>
+        }
+      </span>
+      <span class="timeline__label">{{ step.label }}</span>
+      @if (!last) {
+        <span class="timeline__line" aria-hidden="true"></span>
+      }
+    </li>
+  }
+</ol>

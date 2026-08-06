@@ -1,3 +1,59 @@
 <main class="order-detail">
-  <p>Order detail will be implemented in the next step.</p>
+  @switch (status()) {
+    @case ('loading') {
+      <div class="state" role="status">
+        <span class="spinner" aria-hidden="true"></span>
+        <p>Loading cargo details...</p>
+      </div>
+    }
+
+    @case ('error') {
+      <section class="state" role="alert">
+        <p>{{ errorMessage() }}</p>
+        <button type="button" (click)="retry()">Try again</button>
+      </section>
+    }
+
+    @case ('success') {
+      @if (order(); as currentOrder) {
+        <article class="details-card">
+          <header class="details-card__header">
+            <div>
+              <p class="eyebrow">Reference</p>
+              <p class="reference" [title]="currentOrder.referenceNumber ?? currentOrder.orderNumber">
+                {{ currentOrder.referenceNumber ?? 'No reference' }}
+              </p>
+              <p class="order-number">Order #{{ currentOrder.orderNumber }}</p>
+            </div>
+            <span class="status-badge">{{ currentOrder.statusLabel }}</span>
+          </header>
+
+          <app-order-route [destinations]="currentOrder.destinations" />
+        </article>
+
+        <section class="driver" aria-labelledby="driver-title">
+          <app-avatar
+            [imageUrl]="currentOrder.driverThumbnailUrl"
+            [label]="currentOrder.driverName"
+          />
+          <div class="driver__identity">
+            <p class="eyebrow" id="driver-title">Driver</p>
+            <p class="driver__name" [title]="currentOrder.driverName">
+              {{ currentOrder.driverName }}
+            </p>
+          </div>
+          <time class="highlight-time" [attr.datetime]="currentOrder.startsAt.toISOString()">
+            {{ currentOrder.startsAt | date: 'h:mm a' }}
+          </time>
+        </section>
+
+        <section class="progress" aria-labelledby="progress-title">
+          <h2 id="progress-title">Order status</h2>
+          <app-order-timeline [steps]="currentOrder.timeline" />
+        </section>
+
+        <button class="track-button" type="button">Track Order</button>
+      }
+    }
+  }
 </main>

@@ -62,9 +62,34 @@ function mapOrderDetail(dto: OrderDetailDto): OrderDetail {
     id: dto._id,
     orderNumber: dto.order_number,
     referenceNumber: dto.reference_number ?? null,
+    statusCode: dto.status,
+    statusLabel: mapDetailStatus(dto.status),
     startsAt: new Date(dto.start_date),
     endsAt: new Date(dto.end_date),
+    driverName: dto.driver.nickname,
+    driverThumbnailUrl: normalizeImageUrl(dto.driver.thumbnail),
+    destinations: dto.destinations.map((destination, index) => ({
+      address: destination.address,
+      startsAt: new Date(destination.startDate),
+      endsAt: new Date(destination.endDate ?? destination.startDate),
+      label: index === 0 ? 'Pickup' : 'Dropoff',
+      navigationAvailable: false,
+    })),
+    timeline: dto.status_list.pickup.slice(0, 4).map((step, index) => ({
+      label: ['Created Order', 'Accepted Order', 'Pickup set up', 'Pickup Completed'][index]
+        ?? step.status,
+      completed: step.active,
+    })),
   };
+}
+
+function mapDetailStatus(status: number): string {
+  const labels: Readonly<Record<number, string>> = {
+    1: 'Order assigned',
+    3: 'Pickup completed',
+  };
+
+  return labels[status] ?? 'In progress';
 }
 
 function normalizeImageUrl(url: string | null): string | null {

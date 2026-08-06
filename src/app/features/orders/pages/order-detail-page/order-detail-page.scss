@@ -1,3 +1,203 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
 .order-detail {
+  width: 100%;
+  min-width: 0;
+  min-height: calc(100dvh - 4.5rem);
+  padding: 1rem 1rem 2rem;
+  overflow-x: clip;
+  background: #11151c;
+}
+
+.details-card,
+.driver,
+.progress {
+  min-width: 0;
+  background: #1a1f27;
+  border: 1px solid #2b313b;
+  border-radius: 1rem;
+}
+
+.details-card {
   padding: 1rem;
+}
+
+.details-card__header {
+  display: flex;
+  min-width: 0;
+  gap: 0.75rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.details-card__header > div {
+  min-width: 0;
+}
+
+.eyebrow,
+.reference,
+.order-number,
+.driver__name,
+.state p {
+  margin: 0;
+}
+
+.eyebrow {
+  color: #7e8794;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.reference {
+  margin-top: 0.2rem;
+  overflow: hidden;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-number {
+  margin-top: 0.25rem;
+  color: #929aa6;
+  font-size: 0.75rem;
+}
+
+.status-badge {
+  min-width: 0;
+  max-width: 45%;
+  flex: 0 1 auto;
+  padding: 0.35rem 0.55rem;
+  overflow: hidden;
+  color: #f4c430;
+  background: rgb(244 196 48 / 12%);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.driver {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.driver__identity {
+  min-width: 0;
+}
+
+.driver__name {
+  margin-top: 0.2rem;
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highlight-time {
+  color: #f4c430;
+  font-size: 1rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.progress {
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.progress h2 {
+  margin: 0 0 1.1rem;
+  font-size: 0.95rem;
+}
+
+.track-button,
+.state button {
+  padding: 0.8rem 1rem;
+  color: #17140a;
+  background: #f4c430;
+  border: 0;
+  border-radius: 0.65rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.track-button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.state {
+  display: grid;
+  min-height: 20rem;
+  padding: 2rem;
+  place-items: center;
+  align-content: center;
+  gap: 1rem;
+  color: #a5adb8;
+  text-align: center;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #343b45;
+  border-top-color: #f4c430;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 359px) {
+  .order-detail {
+    padding: 0.75rem 0.75rem 1.5rem;
+  }
+
+  .details-card,
+  .driver,
+  .progress {
+    padding: 0.8rem;
+  }
+
+  .details-card__header {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .status-badge {
+    max-width: 100%;
+    padding: 0.28rem 0.45rem;
+    font-size: 0.6rem;
+  }
+
+  .driver {
+    gap: 0.55rem;
+  }
+
+  .highlight-time {
+    font-size: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
 }
