@@ -11,7 +11,7 @@ describe('OrderCard', () => {
     id: 'real-order-id',
     orderNumber: 'display-number',
     statusCode: 1,
-    statusLabel: 'Order assigned',
+    statusKey: 'assigned',
     type: 'FTL',
     startsAt: new Date('2026-08-06T12:00:00Z'),
     endsAt: new Date('2026-08-06T13:00:00Z'),

@@ -10,7 +10,7 @@ export interface OrderSummary {
   readonly id: string;
   readonly orderNumber: string;
   readonly statusCode: number;
-  readonly statusLabel: string;
+  readonly statusKey: OrderStatusKey;
   readonly type: string;
   readonly startsAt: Date;
   readonly endsAt: Date;
@@ -18,6 +18,9 @@ export interface OrderSummary {
   readonly driverThumbnailUrl: string | null;
   readonly destinations: readonly OrderDestination[];
 }
+
+export type OrderStatusKey =
+  'assigned' | 'inTransit' | 'completed' | 'onHold' | 'cancelled' | 'unknown';
 
 export interface OrderDetail {
   readonly id: string;

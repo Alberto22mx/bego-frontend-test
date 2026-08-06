@@ -2,8 +2,8 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { OrderSummary } from '../../../../core/models/order.model';
-import { LanguageService } from '../../../../core/services/language.service';
+import { OrderStatusKey, OrderSummary } from '../../../../core/models/order.model';
+import { LanguageService, TranslationKey } from '../../../../core/services/language.service';
 import { Avatar } from '../../../../shared/components/avatar/avatar';
 import { OrderRoute } from '../order-route/order-route';
 
@@ -27,5 +27,18 @@ export class OrderCard {
 
   protected stopActionPropagation(event: Event): void {
     event.stopPropagation();
+  }
+
+  protected statusTranslationKey(status: OrderStatusKey): TranslationKey {
+    const translationKeys: Readonly<Record<OrderStatusKey, TranslationKey>> = {
+      assigned: 'statusAssigned',
+      inTransit: 'statusInTransit',
+      completed: 'statusCompleted',
+      onHold: 'statusOnHold',
+      cancelled: 'statusCancelled',
+      unknown: 'statusUnknown',
+    };
+
+    return translationKeys[status];
   }
 }

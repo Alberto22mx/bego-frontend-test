@@ -2,7 +2,6 @@
   <div class="order-card__content">
     <header class="order-card__header">
       <div class="order-card__identity">
-        <app-avatar [imageUrl]="order().driverThumbnailUrl" />
         <div class="order-card__titles">
           <h2>{{ i18n.translate('order') }} #{{ order().orderNumber }}</h2>
           <p class="cargo-type">
@@ -15,7 +14,19 @@
           </p>
         </div>
       </div>
-      <span class="status">{{ order().statusLabel }}</span>
+      <span class="status">
+        <span
+          class="status__dot"
+          [class.status__dot--active]="
+            order().statusKey === 'assigned' || order().statusKey === 'inTransit'
+          "
+          [class.status__dot--cancelled]="order().statusKey === 'cancelled'"
+          aria-hidden="true"
+        ></span>
+        <span class="status__label">
+          {{ i18n.translate(statusTranslationKey(order().statusKey)) }}
+        </span>
+      </span>
     </header>
 
     <app-order-route [destinations]="order().destinations" />
@@ -35,11 +46,11 @@
         [routerLink]="['/orders', order().id]"
         (click)="stopActionPropagation($event)"
       >
+        {{ i18n.translate('resume') }}
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
           <circle cx="12" cy="12" r="2.5" />
         </svg>
-        {{ i18n.translate('resume') }}
       </a>
     </div>
   </div>

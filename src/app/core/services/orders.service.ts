@@ -3,16 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import {
-  ApiResponseDto,
-  OrderDetailDto,
-  OrderSummaryDto,
-} from '../models/order.dto';
-import {
-  OrderDetail,
-  OrderDestination,
-  OrderSummary,
-} from '../models/order.model';
+import { ApiResponseDto, OrderDetailDto, OrderSummaryDto } from '../models/order.dto';
+import { OrderDetail, OrderDestination, OrderStatusKey, OrderSummary } from '../models/order.model';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
@@ -37,7 +29,7 @@ function mapOrderSummary(dto: OrderSummaryDto): OrderSummary {
     id: dto._id,
     orderNumber: dto.order_number,
     statusCode: dto.status,
-    statusLabel: dto.status_string,
+    statusKey: mapOrderStatus(dto.status),
     type: dto.type,
     startsAt: new Date(dto.start_date),
     endsAt: new Date(dto.end_date),
@@ -45,6 +37,18 @@ function mapOrderSummary(dto: OrderSummaryDto): OrderSummary {
     driverThumbnailUrl: normalizeImageUrl(dto.driver_thumbnail),
     destinations: dto.destinations.map(mapDestination),
   };
+}
+
+function mapOrderStatus(status: number): OrderStatusKey {
+  const statusByCode: Readonly<Record<number, OrderStatusKey>> = {
+    1: 'assigned',
+    2: 'inTransit',
+    3: 'completed',
+    4: 'onHold',
+    5: 'cancelled',
+  };
+
+  return statusByCode[status] ?? 'unknown';
 }
 
 function mapDestination(dto: OrderSummaryDto['destinations'][number]): OrderDestination {
@@ -77,8 +81,9 @@ function mapOrderDetail(dto: OrderDetailDto): OrderDetail {
       navigationAvailable: false,
     })),
     timeline: dto.status_list.pickup.slice(0, 4).map((step, index) => ({
-      label: ['Created Order', 'Accepted Order', 'Pickup set up', 'Pickup Completed'][index]
-        ?? step.status,
+      label:
+        ['Created Order', 'Accepted Order', 'Pickup set up', 'Pickup Completed'][index] ??
+        step.status,
       completed: step.active,
     })),
     pickupData: mapPickupData(dto),

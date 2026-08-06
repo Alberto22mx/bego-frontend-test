@@ -78,8 +78,11 @@ h2 {
 }
 
 .status {
+  display: flex;
   min-width: 0;
   max-width: 42%;
+  gap: 0.4rem;
+  align-items: center;
   flex: 0 1 auto;
   padding: 0.35rem 0.55rem;
   overflow: hidden;
@@ -88,8 +91,29 @@ h2 {
   border-radius: 999px;
   font-size: 0.65rem;
   font-weight: 600;
-  text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.status__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: 0 0 auto;
+  background: #7e8794;
+  border-radius: 50%;
+}
+
+.status__dot--active {
+  background: #4da3ff;
+}
+
+.status__dot--cancelled {
+  background: #ef5b5b;
+}
+
+.status__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .order-card__actions {
