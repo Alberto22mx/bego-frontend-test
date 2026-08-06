@@ -36,7 +36,7 @@
         <p class="pickup-action pickup-info">
           <span>{{ i18n.translate('pickupTime') }}</span>
           <time [attr.datetime]="order().startsAt.toISOString()">
-            {{ order().startsAt | date: 'shortTime' }}
+            {{ order().startsAt | date: 'hh:mm:ss a' }}
           </time>
         </p>
       }

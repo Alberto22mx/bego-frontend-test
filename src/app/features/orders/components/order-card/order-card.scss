@@ -136,7 +136,7 @@ h2 {
   padding: 0.8rem 1rem;
   color: #17140a;
   background: #f4c430;
-  border-radius: 0.65rem;
+  border-radius: 9999px;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 800;
@@ -156,7 +156,7 @@ h2 {
   color: #cbd1d8;
   background: #202630;
   border-left: 2px solid #4b535f;
-  border-radius: 0.35rem;
+  border-radius: 9999px;
   font-size: 0.72rem;
   font-weight: 650;
   white-space: nowrap;
@@ -170,7 +170,8 @@ h2 {
 
 .pickup-info time {
   flex: 0 0 auto;
-  color: #f6f7f9;
+  color: #f4c430;
+  font-weight: 750;
 }
 
 .resume-action svg {
