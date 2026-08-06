@@ -25,11 +25,7 @@
 }
 
 .details-card__header {
-  display: flex;
   min-width: 0;
-  gap: 0.75rem;
-  align-items: flex-start;
-  justify-content: space-between;
   margin-bottom: 1.25rem;
 }
 
@@ -37,34 +33,39 @@
   min-width: 0;
 }
 
-.eyebrow,
-.reference,
+.reference-line,
 .order-number,
 .state p {
   margin: 0;
 }
 
-.eyebrow {
-  color: #7e8794;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.reference-line {
+  display: flex;
+  min-width: 0;
+  gap: 0.35rem;
+  align-items: baseline;
+  overflow: hidden;
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
-.reference {
-  margin-top: 0.2rem;
+.reference-line span {
+  flex: 0 0 auto;
+  color: #c3cad3;
+}
+
+.reference-line strong {
+  min-width: 0;
   overflow: hidden;
-  font-size: 1.05rem;
-  font-weight: 800;
+  color: #f6f7f9;
+  font-weight: 750;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .order-number {
   margin-top: 0.25rem;
-  color: #929aa6;
-  font-size: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .cargo-type {
@@ -87,21 +88,6 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.6;
-}
-
-.status-badge {
-  min-width: 0;
-  max-width: 45%;
-  flex: 0 1 auto;
-  padding: 0.35rem 0.55rem;
-  overflow: hidden;
-  color: #f4c430;
-  background: rgb(244 196 48 / 12%);
-  border-radius: 999px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .tracking-card {
@@ -296,17 +282,6 @@ dd {
 
   .tracking-card {
     padding-top: 3rem;
-  }
-
-  .details-card__header {
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-
-  .status-badge {
-    max-width: 100%;
-    padding: 0.28rem 0.45rem;
-    font-size: 0.6rem;
   }
 
   .highlight-time {

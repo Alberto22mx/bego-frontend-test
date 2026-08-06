@@ -19,12 +19,11 @@
         <article class="details-card">
           <header class="details-card__header">
             <div>
-              <p class="eyebrow">{{ i18n.translate('reference') }}</p>
-              <p
-                class="reference"
-                [title]="currentOrder.referenceNumber ?? currentOrder.orderNumber"
-              >
-                {{ currentOrder.referenceNumber ?? 'No reference' }}
+              <p class="reference-line">
+                <span>{{ i18n.translate('reference') }}</span>
+                <span [title]="currentOrder.referenceNumber ?? i18n.translate('notAvailable')">
+                  {{ currentOrder.referenceNumber ?? i18n.translate('notAvailable') }}
+                </span>
               </p>
               <p class="order-number">
                 {{ i18n.translate('order') }} #{{ currentOrder.orderNumber }}
@@ -38,7 +37,6 @@
                 {{ currentOrder.type }}
               </p>
             </div>
-            <span class="status-badge">{{ currentOrder.statusLabel }}</span>
           </header>
 
           <app-order-route [destinations]="currentOrder.destinations" />
