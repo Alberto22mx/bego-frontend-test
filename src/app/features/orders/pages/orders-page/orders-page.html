@@ -1,3 +1,43 @@
 <main class="orders-page">
   <h1>Pedidos</h1>
+
+  @switch (status()) {
+    @case ('loading') {
+      <p role="status">Cargando pedidos próximos...</p>
+    }
+
+    @case ('error') {
+      <section role="alert">
+        <p>No fue posible cargar los pedidos próximos.</p>
+        <button type="button" (click)="retry()">Reintentar</button>
+      </section>
+    }
+
+    @case ('empty') {
+      <p>No hay pedidos próximos.</p>
+    }
+
+    @case ('success') {
+      <ul>
+        @for (order of orders(); track order.id) {
+          <li>
+            <h2>{{ order.orderNumber }}</h2>
+            <p>Tipo: {{ order.type }}</p>
+            <p>Estado: {{ order.statusLabel }}</p>
+            <p>Inicio: {{ order.startsAt | date: 'medium' }}</p>
+
+            <h3>Destinos</h3>
+            <ul>
+              @for (destination of order.destinations; track $index) {
+                <li>
+                  <strong>{{ destination.label }}:</strong>
+                  {{ destination.address }}
+                </li>
+              }
+            </ul>
+          </li>
+        }
+      </ul>
+    }
+  }
 </main>

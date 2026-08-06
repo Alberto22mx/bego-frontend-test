@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import {
   ApiResponseDto,
   OrderDetailDto,
@@ -13,21 +14,20 @@ import {
   OrderSummary,
 } from '../models/order.model';
 
-const API_URL = 'https://129bc152-6319-4e38-b755-534a4ee46195.mock.pstmn.io';
-
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
   private readonly http = inject(HttpClient);
+  private readonly apiUrl = environment.apiUrl;
 
   getUpcomingOrders(): Observable<readonly OrderSummary[]> {
     return this.http
-      .get<ApiResponseDto<readonly OrderSummaryDto[]>>(`${API_URL}/orders/upcoming`)
+      .get<ApiResponseDto<readonly OrderSummaryDto[]>>(`${this.apiUrl}/orders/upcoming`)
       .pipe(map(({ result }) => result.map(mapOrderSummary)));
   }
 
   getOrderDetail(): Observable<OrderDetail> {
     return this.http
-      .get<ApiResponseDto<OrderDetailDto>>(`${API_URL}/orders`)
+      .get<ApiResponseDto<OrderDetailDto>>(`${this.apiUrl}/orders`)
       .pipe(map(({ result }) => mapOrderDetail(result)));
   }
 }
