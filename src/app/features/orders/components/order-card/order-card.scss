@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
 .order-card {
   width: 100%;
   min-width: 0;
@@ -89,7 +94,7 @@ h2 {
   text-align: center;
 }
 
-@media (max-width: 393px) {
+@media (max-width: 359px) {
   .order-card__link {
     padding: 0.8rem;
   }

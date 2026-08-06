@@ -6,7 +6,7 @@
 .order-detail {
   width: 100%;
   min-width: 0;
-  min-height: calc(100dvh - 4.5rem);
+  min-height: calc(var(--app-shell-min-height, 100dvh) - 4.5rem);
   padding: 1rem 1rem 2rem;
   overflow-x: clip;
   background: #11151c;
@@ -137,6 +137,12 @@
 .track-button {
   width: 100%;
   margin-top: 1rem;
+}
+
+.track-button:focus-visible,
+.state button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .state {

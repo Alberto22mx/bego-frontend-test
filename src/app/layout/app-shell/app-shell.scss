@@ -8,9 +8,11 @@
 }
 
 .app-shell {
+  --app-shell-min-height: 100dvh;
+
   width: 100%;
   min-width: 0;
-  min-height: 100dvh;
+  min-height: var(--app-shell-min-height);
   margin-inline: auto;
   overflow-x: clip;
   background: #11151c;
@@ -22,8 +24,10 @@
   }
 
   .app-shell {
+    --app-shell-min-height: calc(100dvh - 3rem);
+
     max-width: 420px;
-    min-height: calc(100dvh - 3rem);
+    min-height: var(--app-shell-min-height);
     border-radius: 1.5rem;
     overflow: hidden;
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 45%);

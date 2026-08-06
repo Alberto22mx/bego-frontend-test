@@ -1,6 +1,7 @@
 .app-header {
   display: grid;
-  grid-template-columns: 2.75rem 1fr 2.75rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  min-width: 0;
   align-items: center;
   min-height: 4.5rem;
   padding: 0.75rem 1rem;
@@ -9,10 +10,14 @@
 }
 
 h1 {
+  min-width: 0;
   margin: 0;
+  overflow: hidden;
   font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icon-button {
@@ -31,7 +36,11 @@ h1 {
 .icon-button:hover,
 .icon-button:focus-visible {
   background: #222833;
-  outline: none;
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid #f4c430;
+  outline-offset: -2px;
 }
 
 svg {
