@@ -106,14 +106,15 @@
           </time>
 
           <div class="tracking-card__timeline">
-            <app-order-timeline [steps]="currentOrder.timeline" />
+            <app-order-timeline [steps]="timelineSteps()" />
           </div>
 
-          @if (trackingMessageVisible()) {
-            <p class="local-message" role="status">{{ i18n.translate('trackingUnavailable') }}</p>
-          }
-
-          <button class="track-button" type="button" (click)="showTrackingLimitation()">
+          <button
+            class="track-button"
+            type="button"
+            [disabled]="!canTrackOrder()"
+            (click)="trackOrder()"
+          >
             {{ i18n.translate('trackOrder') }}
           </button>
         </section>

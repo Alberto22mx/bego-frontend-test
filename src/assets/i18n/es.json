@@ -7,6 +7,7 @@
   "searchCargoOrders": "Buscar órdenes de carga",
   "resume": "Resumen",
   "pickupTime": "Iniciar recolección en",
+  "navigate": "Navegar",
   "statusAssigned": "Orden asignada",
   "statusInTransit": "En tránsito",
   "statusCompleted": "Completada",

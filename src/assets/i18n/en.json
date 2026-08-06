@@ -7,6 +7,7 @@
   "searchCargoOrders": "Search cargo orders",
   "resume": "Resume",
   "pickupTime": "Start pickup in",
+  "navigate": "Navigate",
   "statusAssigned": "Assigned",
   "statusInTransit": "In transit",
   "statusCompleted": "Completed",
