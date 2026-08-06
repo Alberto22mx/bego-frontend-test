@@ -10,6 +10,7 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
 export class Avatar {
   readonly imageUrl = input<string | null>(null);
   readonly label = input('Conductor');
+  readonly size = input(40);
   protected readonly imageFailed = signal(false);
 
   protected handleImageError(): void {

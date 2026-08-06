@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 
 import { OrderDestination } from '../../../../core/models/order.model';
+import { LanguageService } from '../../../../core/services/language.service';
 
 @Component({
   selector: 'app-order-route',
@@ -13,6 +14,7 @@ import { OrderDestination } from '../../../../core/models/order.model';
 })
 export class OrderRoute {
   readonly destinations = input.required<readonly OrderDestination[]>();
+  protected readonly i18n = inject(LanguageService);
   protected readonly pickup = computed(() => this.destinations().at(0) ?? null);
   protected readonly dropoff = computed(() => this.destinations().at(-1) ?? null);
 }

@@ -11,6 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 
 import { OrderDetail } from '../../../../core/models/order.model';
 import { OrdersService } from '../../../../core/services/orders.service';
+import {
+  LanguageService,
+  TranslationKey,
+} from '../../../../core/services/language.service';
 import { Avatar } from '../../../../shared/components/avatar/avatar';
 import { OrderRoute } from '../../components/order-route/order-route';
 import { OrderTimeline } from '../../components/order-timeline/order-timeline';
@@ -30,10 +34,13 @@ export class OrderDetailPage {
   private readonly ordersService = inject(OrdersService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly orderId = this.route.snapshot.paramMap.get('orderId');
+  protected readonly i18n = inject(LanguageService);
 
   protected readonly order = signal<OrderDetail | null>(null);
   protected readonly status = signal<OrderDetailStatus>('loading');
-  protected readonly errorMessage = signal('');
+  protected readonly errorKey = signal<TranslationKey>('loadDetailError');
+  protected readonly pickupExpanded = signal(true);
+  protected readonly trackingMessageVisible = signal(false);
 
   constructor() {
     this.loadOrder();
@@ -43,14 +50,21 @@ export class OrderDetailPage {
     this.loadOrder();
   }
 
+  protected togglePickupData(): void {
+    this.pickupExpanded.update((expanded) => !expanded);
+  }
+
+  protected showTrackingLimitation(): void {
+    this.trackingMessageVisible.set(true);
+  }
+
   private loadOrder(): void {
     if (!this.orderId) {
-      this.showError('The order identifier is missing.');
+      this.showError('detailUnavailable');
       return;
     }
 
     this.status.set('loading');
-    this.errorMessage.set('');
 
     this.ordersService
       .getOrderDetail()
@@ -58,20 +72,20 @@ export class OrderDetailPage {
       .subscribe({
         next: (order) => {
           if (order.id !== this.orderId) {
-            this.showError('The selected order is not available in the detail mock.');
+            this.showError('detailUnavailable');
             return;
           }
 
           this.order.set(order);
           this.status.set('success');
         },
-        error: () => this.showError('We could not load this cargo order.'),
+        error: () => this.showError('loadDetailError'),
       });
   }
 
-  private showError(message: string): void {
+  private showError(key: TranslationKey): void {
     this.order.set(null);
-    this.errorMessage.set(message);
+    this.errorKey.set(key);
     this.status.set('error');
   }
 }

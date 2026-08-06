@@ -16,6 +16,7 @@ export interface OrderSummaryDto {
   readonly status: number;
   readonly order_number: string;
   readonly type: string;
+  readonly type: string;
   readonly destinations: readonly OrderDestinationDto[];
   readonly start_date: number;
   readonly end_date: number;
@@ -47,6 +48,11 @@ export interface OrderDetailDestinationDto {
   readonly startDate: number;
   readonly endDate?: number;
   readonly status_string: string;
+  readonly contact_info?: {
+    readonly name?: string | null;
+    readonly telephone?: string | null;
+    readonly email?: string | null;
+  };
 }
 
 export interface OrderStatusStepDto {

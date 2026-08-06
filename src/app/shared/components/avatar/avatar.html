@@ -1,4 +1,9 @@
-<span class="avatar" role="img" [attr.aria-label]="label()">
+<span
+  class="avatar"
+  role="img"
+  [attr.aria-label]="label()"
+  [style.--avatar-size.px]="size()"
+>
   @if (imageUrl() && !imageFailed()) {
     <img [src]="imageUrl()" alt="" (error)="handleImageError()" />
   } @else {

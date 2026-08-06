@@ -4,9 +4,11 @@
       <span class="timeline__marker" aria-hidden="true">
         @if (step.completed) {
           <svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-9" /></svg>
+        } @else {
+          <svg class="pending-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /></svg>
         }
       </span>
-      <span class="timeline__label">{{ step.label }}</span>
+      <span class="timeline__label">{{ stepLabel($index, step.label) }}</span>
       @if (!last) {
         <span class="timeline__line" aria-hidden="true"></span>
       }

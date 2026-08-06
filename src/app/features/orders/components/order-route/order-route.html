@@ -1,9 +1,11 @@
 <div class="route">
   @if (pickup(); as pickupStop) {
     <section class="route__stop">
-      <span class="route__marker route__marker--pickup" aria-hidden="true"></span>
+      <span class="route__marker route__marker--pickup" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 7h10v9H5zM15 10h3l2 3v3h-5z" /></svg>
+      </span>
       <div class="route__content">
-        <p class="route__label">Pickup</p>
+        <p class="route__label">{{ i18n.translate('pickup') }}</p>
         <p class="route__address" [title]="pickupStop.address">{{ pickupStop.address }}</p>
         <time [attr.datetime]="pickupStop.startsAt.toISOString()">
           {{ pickupStop.startsAt | date: 'MMM d, y · h:mm a' }}
@@ -14,9 +16,14 @@
 
   @if (dropoff(); as dropoffStop) {
     <section class="route__stop">
-      <span class="route__marker route__marker--dropoff" aria-hidden="true"></span>
+      <span class="route__marker route__marker--dropoff" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
+          <circle cx="12" cy="10" r="2" />
+        </svg>
+      </span>
       <div class="route__content">
-        <p class="route__label">Dropoff</p>
+        <p class="route__label">{{ i18n.translate('dropoff') }}</p>
         <p class="route__address" [title]="dropoffStop.address">{{ dropoffStop.address }}</p>
         <time [attr.datetime]="dropoffStop.startsAt.toISOString()">
           {{ dropoffStop.startsAt | date: 'MMM d, y · h:mm a' }}

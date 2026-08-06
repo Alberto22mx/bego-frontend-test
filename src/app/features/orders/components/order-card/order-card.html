@@ -1,11 +1,16 @@
 <article class="order-card">
-  <a class="order-card__link" [routerLink]="['/orders', order().id]">
+  <div class="order-card__content">
     <header class="order-card__header">
       <div class="order-card__identity">
         <app-avatar [imageUrl]="order().driverThumbnailUrl" />
         <div class="order-card__titles">
-          <h2>Order #{{ order().orderNumber }}</h2>
-          <p>{{ order().type }}</p>
+          <h2>{{ i18n.translate('order') }} #{{ order().orderNumber }}</h2>
+          <p class="cargo-type">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h12v10H3zM15 10h3l3 3v3h-6zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+            </svg>
+            {{ order().type }}
+          </p>
         </div>
       </div>
       <span class="status">{{ order().statusLabel }}</span>
@@ -13,6 +18,24 @@
 
     <app-order-route [destinations]="order().destinations" />
 
-    <span class="order-card__action">View order</span>
-  </a>
+    <div class="order-card__actions">
+      @if (isReadyForPickup(order())) {
+        <button class="pickup-action" type="button" (click)="showPickupLimitation()">
+          {{ i18n.translate('pickupTime') }}
+        </button>
+      }
+
+      <a class="resume-action" [routerLink]="['/orders', order().id]">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+          <circle cx="12" cy="12" r="2.5" />
+        </svg>
+        {{ i18n.translate('resume') }}
+      </a>
+    </div>
+
+    @if (pickupMessageVisible()) {
+      <p class="pickup-message" role="status">{{ i18n.translate('pickupReadOnly') }}</p>
+    }
+  </div>
 </article>

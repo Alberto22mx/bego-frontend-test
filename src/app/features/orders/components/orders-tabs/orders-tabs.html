@@ -1,5 +1,7 @@
 <nav class="tabs" aria-label="Estados de pedidos">
-  <button class="tab tab--active" type="button" aria-current="page">Upcoming</button>
-  <button class="tab" type="button">Completed</button>
-  <button class="tab" type="button">Past</button>
+  <button class="tab tab--active" type="button" aria-current="page">
+    {{ i18n.translate('upcoming') }}
+  </button>
+  <button class="tab" type="button">{{ i18n.translate('completed') }}</button>
+  <button class="tab" type="button">{{ i18n.translate('past') }}</button>
 </nav>

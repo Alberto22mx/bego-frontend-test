@@ -23,6 +23,7 @@ export interface OrderDetail {
   readonly id: string;
   readonly orderNumber: string;
   readonly referenceNumber: string | null;
+  readonly type: string;
   readonly statusCode: number;
   readonly statusLabel: string;
   readonly startsAt: Date;
@@ -31,9 +32,18 @@ export interface OrderDetail {
   readonly driverThumbnailUrl: string | null;
   readonly destinations: readonly OrderDestination[];
   readonly timeline: readonly OrderTimelineStep[];
+  readonly pickupData: OrderPickupData | null;
 }
 
 export interface OrderTimelineStep {
   readonly label: string;
   readonly completed: boolean;
+}
+
+export interface OrderPickupData {
+  readonly name: string | null;
+  readonly address: string;
+  readonly dateTime: Date;
+  readonly phone: string | null;
+  readonly email: string | null;
 }

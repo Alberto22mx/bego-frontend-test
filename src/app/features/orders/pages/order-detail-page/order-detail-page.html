@@ -3,14 +3,14 @@
     @case ('loading') {
       <div class="state" role="status">
         <span class="spinner" aria-hidden="true"></span>
-        <p>Loading cargo details...</p>
+        <p>{{ i18n.translate('loading') }}...</p>
       </div>
     }
 
     @case ('error') {
       <section class="state" role="alert">
-        <p>{{ errorMessage() }}</p>
-        <button type="button" (click)="retry()">Try again</button>
+        <p>{{ i18n.translate(errorKey()) }}</p>
+        <button type="button" (click)="retry()">{{ i18n.translate('tryAgain') }}</button>
       </section>
     }
 
@@ -19,11 +19,17 @@
         <article class="details-card">
           <header class="details-card__header">
             <div>
-              <p class="eyebrow">Reference</p>
+              <p class="eyebrow">{{ i18n.translate('reference') }}</p>
               <p class="reference" [title]="currentOrder.referenceNumber ?? currentOrder.orderNumber">
                 {{ currentOrder.referenceNumber ?? 'No reference' }}
               </p>
-              <p class="order-number">Order #{{ currentOrder.orderNumber }}</p>
+              <p class="order-number">{{ i18n.translate('order') }} #{{ currentOrder.orderNumber }}</p>
+              <p class="cargo-type">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 6h12v10H3zM15 10h3l3 3v3h-6zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                </svg>
+                {{ currentOrder.type }}
+              </p>
             </div>
             <span class="status-badge">{{ currentOrder.statusLabel }}</span>
           </header>
@@ -35,9 +41,10 @@
           <app-avatar
             [imageUrl]="currentOrder.driverThumbnailUrl"
             [label]="currentOrder.driverName"
+            [size]="72"
           />
           <div class="driver__identity">
-            <p class="eyebrow" id="driver-title">Driver</p>
+            <p class="eyebrow" id="driver-title">{{ i18n.translate('driver') }}</p>
             <p class="driver__name" [title]="currentOrder.driverName">
               {{ currentOrder.driverName }}
             </p>
@@ -48,11 +55,69 @@
         </section>
 
         <section class="progress" aria-labelledby="progress-title">
-          <h2 id="progress-title">Order status</h2>
+          <h2 id="progress-title">{{ i18n.translate('orderStatus') }}</h2>
           <app-order-timeline [steps]="currentOrder.timeline" />
         </section>
 
-        <button class="track-button" type="button">Track Order</button>
+        <button class="track-button" type="button" (click)="showTrackingLimitation()">
+          {{ i18n.translate('trackOrder') }}
+        </button>
+
+        @if (trackingMessageVisible()) {
+          <p class="local-message" role="status">{{ i18n.translate('trackingUnavailable') }}</p>
+        }
+
+        <section class="pickup-data">
+          <h2>
+            <button
+              class="accordion-button"
+              type="button"
+              [attr.aria-expanded]="pickupExpanded()"
+              aria-controls="pickup-data-content"
+              (click)="togglePickupData()"
+            >
+              {{ i18n.translate('pickupData') }}
+              <svg [class.rotated]="pickupExpanded()" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m7 10 5 5 5-5" />
+              </svg>
+            </button>
+          </h2>
+
+          @if (pickupExpanded()) {
+            <div id="pickup-data-content" class="pickup-data__content">
+              @if (currentOrder.pickupData; as pickup) {
+                <dl>
+                  <div>
+                    <dt>{{ i18n.translate('name') }}</dt>
+                    <dd>{{ pickup.name ?? i18n.translate('notAvailable') }}</dd>
+                  </div>
+                  <div>
+                    <dt>{{ i18n.translate('address') }}</dt>
+                    <dd>{{ pickup.address }}</dd>
+                  </div>
+                  <div>
+                    <dt>{{ i18n.translate('dateTime') }}</dt>
+                    <dd>
+                      <time [attr.datetime]="pickup.dateTime.toISOString()">
+                        {{ pickup.dateTime | date: 'medium' }}
+                      </time>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>{{ i18n.translate('phone') }}</dt>
+                    <dd>{{ pickup.phone ?? i18n.translate('notAvailable') }}</dd>
+                  </div>
+                  <div>
+                    <dt>{{ i18n.translate('email') }}</dt>
+                    <dd>{{ pickup.email ?? i18n.translate('notAvailable') }}</dd>
+                  </div>
+                </dl>
+              } @else {
+                <p>{{ i18n.translate('notAvailable') }}</p>
+              }
+            </div>
+          }
+        </section>
       }
     }
   }

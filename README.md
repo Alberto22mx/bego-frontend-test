@@ -131,6 +131,8 @@ Both environments currently point to the same public mock API. This can be chang
 
 The application header adapts its title to the active route, and the detail back button navigates explicitly to `/orders`.
 
+The header also provides a lightweight English/Spanish selector. The selected language is stored in `localStorage` when browser storage is available.
+
 ## Responsive design and accessibility
 
 The interface is mobile-first and supports narrow screens starting at approximately 320 px. On wider screens, the application remains centered with a maximum width of approximately 420 px.
@@ -170,8 +172,9 @@ Driver images use a local inline SVG avatar fallback when the API returns no ima
 - There is no `/orders/:id` endpoint.
 - Only the list order whose ID matches the fixed `/orders` response can display the complete detail screen.
 - The `Upcoming`, `Completed`, and `Past` tabs do not have independent endpoints available; only `Upcoming` currently loads data.
-- Search is currently visual only and does not filter orders.
-- `Track Order` has no behavior because the assessment does not define an API or action for tracking.
+- Search filters the already loaded upcoming orders by order number; the mock does not provide server-side search.
+- The pickup action only displays a local read-only confirmation because the mock does not expose a mutation endpoint.
+- `Track Order` only displays a local availability message because the assessment does not define a tracking API or action.
 
 ## Deployment
 

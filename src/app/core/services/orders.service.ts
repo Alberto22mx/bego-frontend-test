@@ -62,6 +62,7 @@ function mapOrderDetail(dto: OrderDetailDto): OrderDetail {
     id: dto._id,
     orderNumber: dto.order_number,
     referenceNumber: dto.reference_number ?? null,
+    type: dto.type,
     statusCode: dto.status,
     statusLabel: mapDetailStatus(dto.status),
     startsAt: new Date(dto.start_date),
@@ -80,6 +81,22 @@ function mapOrderDetail(dto: OrderDetailDto): OrderDetail {
         ?? step.status,
       completed: step.active,
     })),
+    pickupData: mapPickupData(dto),
+  };
+}
+
+function mapPickupData(dto: OrderDetailDto): OrderDetail['pickupData'] {
+  const pickup = dto.destinations.at(0);
+  if (!pickup) {
+    return null;
+  }
+
+  return {
+    name: pickup.contact_info?.name?.trim() || null,
+    address: pickup.address,
+    dateTime: new Date(pickup.startDate),
+    phone: pickup.contact_info?.telephone?.trim() || null,
+    email: pickup.contact_info?.email?.trim() || null,
   };
 }
 

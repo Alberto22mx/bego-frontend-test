@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { LanguageService } from '../../../../core/services/language.service';
 
 @Component({
   selector: 'app-orders-tabs',
@@ -7,4 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './orders-tabs.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrdersTabs {}
+export class OrdersTabs {
+  protected readonly i18n = inject(LanguageService);
+}

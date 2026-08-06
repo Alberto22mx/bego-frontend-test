@@ -1,7 +1,11 @@
 .avatar {
+  --avatar-size: 2.5rem;
+}
+
+.avatar {
   display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
   overflow: hidden;
   place-items: center;
   color: #aeb5c0;
@@ -16,7 +20,7 @@ img {
 }
 
 svg {
-  width: 1.35rem;
+  width: 55%;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;

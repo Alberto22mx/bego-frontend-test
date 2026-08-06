@@ -1,6 +1,6 @@
 .app-header {
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
   min-width: 0;
   align-items: center;
   min-height: 4.5rem;
@@ -33,9 +33,43 @@ h1 {
   cursor: pointer;
 }
 
+.header-actions {
+  display: flex;
+  min-width: 0;
+  gap: 0.15rem;
+  align-items: center;
+}
+
+.language-button {
+  min-width: 2rem;
+  padding: 0.35rem;
+  color: #f4c430;
+  background: transparent;
+  border: 1px solid #3b424d;
+  border-radius: 0.45rem;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
 .icon-button:hover,
 .icon-button:focus-visible {
   background: #222833;
+}
+
+.language-button:focus-visible {
+  outline: 2px solid #f4c430;
+  outline-offset: 2px;
+}
+
+@media (max-width: 359px) {
+  .app-header {
+    padding-inline: 0.65rem;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
 }
 
 .icon-button:focus-visible {

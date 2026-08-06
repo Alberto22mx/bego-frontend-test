@@ -10,6 +10,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
+import { LanguageService } from '../../core/services/language.service';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -21,9 +23,12 @@ export class AppHeader {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly currentUrl = signal(this.router.url);
+  protected readonly i18n = inject(LanguageService);
 
   protected readonly title = computed(() =>
-    /^\/orders\/[^/]+/.test(this.currentUrl()) ? 'Cargo Details' : 'Cargo Orders',
+    /^\/orders\/[^/]+/.test(this.currentUrl())
+      ? this.i18n.translate('cargoDetails')
+      : this.i18n.translate('cargoOrders'),
   );
 
   constructor() {
