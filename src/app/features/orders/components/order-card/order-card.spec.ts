@@ -47,17 +47,15 @@ describe('OrderCard', () => {
     expect(resume?.getAttribute('href')).not.toContain(order.orderNumber);
   });
 
-  it('shows the local pickup message without changing the current route', () => {
+  it('shows pickup as non-interactive text without changing the current route', () => {
     const fixture = TestBed.createComponent(OrderCard);
     fixture.componentRef.setInput('order', order);
     fixture.detectChanges();
 
     const element = fixture.nativeElement as HTMLElement;
-    const pickup = element.querySelector<HTMLButtonElement>('.pickup-action');
-    pickup?.click();
-    fixture.detectChanges();
-
-    expect(element.querySelector('.pickup-message')).toBeTruthy();
+    expect(element.querySelector('.pickup-action')?.tagName).toBe('P');
+    expect(element.querySelector('button.pickup-action')).toBeNull();
+    expect(element.querySelector('.pickup-message')).toBeNull();
     expect(TestBed.inject(Location).path()).toBe('');
   });
 });

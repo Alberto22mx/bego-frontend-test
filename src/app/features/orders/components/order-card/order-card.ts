@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { OrderSummary } from '../../../../core/models/order.model';
@@ -17,7 +17,6 @@ import { OrderRoute } from '../order-route/order-route';
 export class OrderCard {
   readonly order = input.required<OrderSummary>();
   protected readonly i18n = inject(LanguageService);
-  protected readonly pickupMessageVisible = signal(false);
 
   protected isReadyForPickup(order: OrderSummary): boolean {
     // The mock has no explicit pickup-ready flag. An assigned order whose first stop
@@ -27,10 +26,5 @@ export class OrderCard {
 
   protected stopActionPropagation(event: Event): void {
     event.stopPropagation();
-  }
-
-  protected showPickupLimitation(event: Event): void {
-    event.stopPropagation();
-    this.pickupMessageVisible.set(true);
   }
 }

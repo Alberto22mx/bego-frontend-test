@@ -22,9 +22,9 @@
 
     <div class="order-card__actions">
       @if (isReadyForPickup(order())) {
-        <button class="pickup-action" type="button" (click)="showPickupLimitation($event)">
+        <p class="pickup-action">
           {{ i18n.translate('pickupTime') }}
-        </button>
+        </p>
       }
 
       <a
@@ -39,9 +39,5 @@
         {{ i18n.translate('resume') }}
       </a>
     </div>
-
-    @if (pickupMessageVisible()) {
-      <p class="pickup-message" role="status">{{ i18n.translate('pickupReadOnly') }}</p>
-    }
   </div>
 </article>

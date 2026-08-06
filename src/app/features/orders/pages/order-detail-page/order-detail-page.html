@@ -20,13 +20,20 @@
           <header class="details-card__header">
             <div>
               <p class="eyebrow">{{ i18n.translate('reference') }}</p>
-              <p class="reference" [title]="currentOrder.referenceNumber ?? currentOrder.orderNumber">
+              <p
+                class="reference"
+                [title]="currentOrder.referenceNumber ?? currentOrder.orderNumber"
+              >
                 {{ currentOrder.referenceNumber ?? 'No reference' }}
               </p>
-              <p class="order-number">{{ i18n.translate('order') }} #{{ currentOrder.orderNumber }}</p>
+              <p class="order-number">
+                {{ i18n.translate('order') }} #{{ currentOrder.orderNumber }}
+              </p>
               <p class="cargo-type">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 6h12v10H3zM15 10h3l3 3v3h-6zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                  <path
+                    d="M3 6h12v10H3zM15 10h3l3 3v3h-6zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+                  />
                 </svg>
                 {{ currentOrder.type }}
               </p>
@@ -37,35 +44,31 @@
           <app-order-route [destinations]="currentOrder.destinations" />
         </article>
 
-        <section class="driver" aria-labelledby="driver-title">
-          <app-avatar
-            [imageUrl]="currentOrder.driverThumbnailUrl"
-            [label]="currentOrder.driverName"
-            [size]="72"
-          />
-          <div class="driver__identity">
-            <p class="eyebrow" id="driver-title">{{ i18n.translate('driver') }}</p>
-            <p class="driver__name" [title]="currentOrder.driverName">
-              {{ currentOrder.driverName }}
-            </p>
+        <section class="tracking-card" [attr.aria-label]="i18n.translate('orderStatus')">
+          <div class="tracking-card__avatar">
+            <app-avatar
+              [imageUrl]="currentOrder.driverThumbnailUrl"
+              [label]="currentOrder.driverName"
+              [size]="72"
+            />
           </div>
+
           <time class="highlight-time" [attr.datetime]="currentOrder.startsAt.toISOString()">
             {{ currentOrder.startsAt | date: 'h:mm a' }}
           </time>
+
+          <div class="tracking-card__timeline">
+            <app-order-timeline [steps]="currentOrder.timeline" />
+          </div>
+
+          @if (trackingMessageVisible()) {
+            <p class="local-message" role="status">{{ i18n.translate('trackingUnavailable') }}</p>
+          }
+
+          <button class="track-button" type="button" (click)="showTrackingLimitation()">
+            {{ i18n.translate('trackOrder') }}
+          </button>
         </section>
-
-        <section class="progress" aria-labelledby="progress-title">
-          <h2 id="progress-title">{{ i18n.translate('orderStatus') }}</h2>
-          <app-order-timeline [steps]="currentOrder.timeline" />
-        </section>
-
-        <button class="track-button" type="button" (click)="showTrackingLimitation()">
-          {{ i18n.translate('trackOrder') }}
-        </button>
-
-        @if (trackingMessageVisible()) {
-          <p class="local-message" role="status">{{ i18n.translate('trackingUnavailable') }}</p>
-        }
 
         <section class="pickup-data">
           <h2>

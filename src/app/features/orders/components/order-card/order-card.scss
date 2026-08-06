@@ -109,8 +109,8 @@ h2 {
   align-items: center;
   justify-content: center;
   padding: 0.8rem 1rem;
+  margin: 0;
   border-radius: 0.65rem;
-  cursor: pointer;
   font-size: 0.85rem;
   font-weight: 800;
   text-align: center;
@@ -120,6 +120,7 @@ h2 {
 .resume-action {
   color: #17140a;
   background: #f4c430;
+  cursor: pointer;
 }
 
 .pickup-action {
@@ -138,21 +139,9 @@ h2 {
   stroke-width: 1.8;
 }
 
-.resume-action:focus-visible,
-.pickup-action:focus-visible {
+.resume-action:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
-}
-
-.pickup-message {
-  padding: 0.65rem;
-  margin-top: 0.65rem;
-  color: #cbd1d8;
-  background: #252b34;
-  border-radius: 0.55rem;
-  font-size: 0.7rem;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
 }
 
 @media (max-width: 359px) {
