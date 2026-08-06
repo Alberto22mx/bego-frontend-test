@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -11,20 +12,17 @@ import { ActivatedRoute } from '@angular/router';
 
 import { OrderDetail } from '../../../../core/models/order.model';
 import { OrdersService } from '../../../../core/services/orders.service';
-import {
-  LanguageService,
-  TranslationKey,
-} from '../../../../core/services/language.service';
+import { LanguageService, TranslationKey } from '../../../../core/services/language.service';
 import { Avatar } from '../../../../shared/components/avatar/avatar';
-import { OrderRoute } from '../../components/order-route/order-route';
 import { OrderTimeline } from '../../components/order-timeline/order-timeline';
 
 type OrderDetailStatus = 'loading' | 'success' | 'error';
+type DestinationType = 'pickup' | 'dropoff';
 
 @Component({
   selector: 'app-order-detail-page',
   standalone: true,
-  imports: [Avatar, DatePipe, OrderRoute, OrderTimeline],
+  imports: [Avatar, DatePipe, OrderTimeline],
   templateUrl: './order-detail-page.html',
   styleUrl: './order-detail-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +39,17 @@ export class OrderDetailPage {
   protected readonly errorKey = signal<TranslationKey>('loadDetailError');
   protected readonly pickupExpanded = signal(true);
   protected readonly trackingMessageVisible = signal(false);
+  protected readonly selectedDestinationType = signal<DestinationType>('pickup');
+  protected readonly pickupDestination = computed(() => this.order()?.destinations.at(0) ?? null);
+  protected readonly dropoffDestination = computed(() => {
+    const destinations = this.order()?.destinations ?? [];
+    return destinations.length > 1 ? (destinations.at(-1) ?? null) : null;
+  });
+  protected readonly selectedDestination = computed(() =>
+    this.selectedDestinationType() === 'pickup'
+      ? this.pickupDestination()
+      : this.dropoffDestination(),
+  );
 
   constructor() {
     this.loadOrder();
@@ -52,6 +61,16 @@ export class OrderDetailPage {
 
   protected togglePickupData(): void {
     this.pickupExpanded.update((expanded) => !expanded);
+  }
+
+  protected selectDestination(type: DestinationType): void {
+    if (type === 'pickup' ? this.pickupDestination() : this.dropoffDestination()) {
+      this.selectedDestinationType.set(type);
+    }
+  }
+
+  protected selectedDataTitle(): TranslationKey {
+    return this.selectedDestinationType() === 'pickup' ? 'pickupData' : 'dropoffData';
   }
 
   protected showTrackingLimitation(): void {

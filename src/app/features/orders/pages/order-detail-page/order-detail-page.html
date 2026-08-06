@@ -39,7 +39,57 @@
             </div>
           </header>
 
-          <app-order-route [destinations]="currentOrder.destinations" />
+          <div class="destination-options">
+            @if (pickupDestination(); as pickup) {
+              <button
+                class="destination-option"
+                [class.is-selected]="selectedDestinationType() === 'pickup'"
+                type="button"
+                [attr.aria-label]="i18n.translate('pickup')"
+                [attr.aria-pressed]="selectedDestinationType() === 'pickup'"
+                (click)="selectDestination('pickup')"
+              >
+                <span class="destination-option__marker" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 7h10v9H5zM15 10h3l2 3v3h-5z" /></svg>
+                </span>
+                <span class="destination-option__content">
+                  <span class="destination-option__label">{{ i18n.translate('pickup') }}</span>
+                  <span class="destination-option__address">{{ pickup.address }}</span>
+                  <time [attr.datetime]="pickup.startsAt.toISOString()">
+                    {{ pickup.startsAt | date: 'MMM d, y · h:mm a' }}
+                  </time>
+                </span>
+              </button>
+            }
+
+            @if (dropoffDestination(); as dropoff) {
+              <button
+                class="destination-option"
+                [class.is-selected]="selectedDestinationType() === 'dropoff'"
+                type="button"
+                [attr.aria-label]="i18n.translate('dropoff')"
+                [attr.aria-pressed]="selectedDestinationType() === 'dropoff'"
+                (click)="selectDestination('dropoff')"
+              >
+                <span
+                  class="destination-option__marker destination-option__marker--dropoff"
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
+                    <circle cx="12" cy="10" r="2" />
+                  </svg>
+                </span>
+                <span class="destination-option__content">
+                  <span class="destination-option__label">{{ i18n.translate('dropoff') }}</span>
+                  <span class="destination-option__address">{{ dropoff.address }}</span>
+                  <time [attr.datetime]="dropoff.startsAt.toISOString()">
+                    {{ dropoff.startsAt | date: 'MMM d, y · h:mm a' }}
+                  </time>
+                </span>
+              </button>
+            }
+          </div>
         </article>
 
         <section class="tracking-card" [attr.aria-label]="i18n.translate('orderStatus')">
@@ -77,7 +127,7 @@
               aria-controls="pickup-data-content"
               (click)="togglePickupData()"
             >
-              {{ i18n.translate('pickupData') }}
+              {{ i18n.translate(selectedDataTitle()) }}
               <svg [class.rotated]="pickupExpanded()" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m7 10 5 5 5-5" />
               </svg>
@@ -86,32 +136,52 @@
 
           @if (pickupExpanded()) {
             <div id="pickup-data-content" class="pickup-data__content">
-              @if (currentOrder.pickupData; as pickup) {
+              @if (selectedDestination(); as destination) {
                 <dl>
                   <div>
-                    <dt>{{ i18n.translate('name') }}</dt>
-                    <dd>{{ pickup.name ?? i18n.translate('notAvailable') }}</dd>
-                  </div>
-                  <div>
                     <dt>{{ i18n.translate('address') }}</dt>
-                    <dd>{{ pickup.address }}</dd>
+                    <dd>{{ destination.address }}</dd>
                   </div>
                   <div>
-                    <dt>{{ i18n.translate('dateTime') }}</dt>
+                    <dt>{{ i18n.translate('startsAt') }}</dt>
                     <dd>
-                      <time [attr.datetime]="pickup.dateTime.toISOString()">
-                        {{ pickup.dateTime | date: 'medium' }}
+                      <time [attr.datetime]="destination.startsAt.toISOString()">
+                        {{ destination.startsAt | date: 'medium' }}
                       </time>
                     </dd>
                   </div>
-                  <div>
-                    <dt>{{ i18n.translate('phone') }}</dt>
-                    <dd>{{ pickup.phone ?? i18n.translate('notAvailable') }}</dd>
-                  </div>
-                  <div>
-                    <dt>{{ i18n.translate('email') }}</dt>
-                    <dd>{{ pickup.email ?? i18n.translate('notAvailable') }}</dd>
-                  </div>
+                  @if (destination.endsAt.getTime() !== destination.startsAt.getTime()) {
+                    <div>
+                      <dt>{{ i18n.translate('endsAt') }}</dt>
+                      <dd>
+                        <time [attr.datetime]="destination.endsAt.toISOString()">
+                          {{ destination.endsAt | date: 'medium' }}
+                        </time>
+                      </dd>
+                    </div>
+                  }
+                  @if (selectedDestinationType() === 'pickup') {
+                    @if (currentOrder.pickupData; as data) {
+                      @if (data.name) {
+                        <div>
+                          <dt>{{ i18n.translate('name') }}</dt>
+                          <dd>{{ data.name }}</dd>
+                        </div>
+                      }
+                      @if (data.phone) {
+                        <div>
+                          <dt>{{ i18n.translate('phone') }}</dt>
+                          <dd>{{ data.phone }}</dd>
+                        </div>
+                      }
+                      @if (data.email) {
+                        <div>
+                          <dt>{{ i18n.translate('email') }}</dt>
+                          <dd>{{ data.email }}</dd>
+                        </div>
+                      }
+                    }
+                  }
                 </dl>
               } @else {
                 <p>{{ i18n.translate('notAvailable') }}</p>
