@@ -1,0 +1,32 @@
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid #292f38;
+}
+
+.tab {
+  position: relative;
+  min-height: 3rem;
+  padding: 0.75rem 0.25rem;
+  color: #818995;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tab--active {
+  color: #f4c430;
+}
+
+.tab--active::after {
+  position: absolute;
+  right: 18%;
+  bottom: -1px;
+  left: 18%;
+  height: 2px;
+  background: #f4c430;
+  border-radius: 2px 2px 0 0;
+  content: '';
+}

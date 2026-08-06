@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,13 +9,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { OrderSummary } from '../../../../core/models/order.model';
 import { OrdersService } from '../../../../core/services/orders.service';
+import { OrderList } from '../../components/order-list/order-list';
+import { OrdersTabs } from '../../components/orders-tabs/orders-tabs';
 
 type OrdersPageStatus = 'loading' | 'success' | 'empty' | 'error';
 
 @Component({
   selector: 'app-orders-page',
   standalone: true,
-  imports: [DatePipe],
+  imports: [OrderList, OrdersTabs],
   templateUrl: './orders-page.html',
   styleUrl: './orders-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

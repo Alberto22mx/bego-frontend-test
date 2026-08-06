@@ -1,0 +1,5 @@
+<ul class="order-list" aria-label="Pedidos próximos">
+  @for (order of orders(); track order.id) {
+    <li><app-order-card [order]="order" /></li>
+  }
+</ul>

@@ -1,43 +1,40 @@
 <main class="orders-page">
-  <h1>Pedidos</h1>
+  <app-orders-tabs />
 
-  @switch (status()) {
-    @case ('loading') {
-      <p role="status">Cargando pedidos próximos...</p>
+  <div class="orders-page__content">
+    <label class="search">
+      <span class="visually-hidden">Buscar pedidos</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m16 16 4 4" />
+      </svg>
+      <input type="search" placeholder="Search cargo orders" />
+    </label>
+
+    @switch (status()) {
+      @case ('loading') {
+        <div class="state" role="status">
+          <span class="spinner" aria-hidden="true"></span>
+          <p>Loading upcoming orders...</p>
+        </div>
+      }
+
+      @case ('error') {
+        <section class="state" role="alert">
+          <p>We couldn't load your upcoming orders.</p>
+          <button type="button" (click)="retry()">Try again</button>
+        </section>
+      }
+
+      @case ('empty') {
+        <section class="state">
+          <p>No upcoming orders found.</p>
+        </section>
+      }
+
+      @case ('success') {
+        <app-order-list [orders]="orders()" />
+      }
     }
-
-    @case ('error') {
-      <section role="alert">
-        <p>No fue posible cargar los pedidos próximos.</p>
-        <button type="button" (click)="retry()">Reintentar</button>
-      </section>
-    }
-
-    @case ('empty') {
-      <p>No hay pedidos próximos.</p>
-    }
-
-    @case ('success') {
-      <ul>
-        @for (order of orders(); track order.id) {
-          <li>
-            <h2>{{ order.orderNumber }}</h2>
-            <p>Tipo: {{ order.type }}</p>
-            <p>Estado: {{ order.statusLabel }}</p>
-            <p>Inicio: {{ order.startsAt | date: 'medium' }}</p>
-
-            <h3>Destinos</h3>
-            <ul>
-              @for (destination of order.destinations; track $index) {
-                <li>
-                  <strong>{{ destination.label }}:</strong>
-                  {{ destination.address }}
-                </li>
-              }
-            </ul>
-          </li>
-        }
-      </ul>
-    }
-  }
+  </div>
 </main>

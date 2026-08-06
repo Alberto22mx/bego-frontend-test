@@ -1,0 +1,88 @@
+.route {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 1rem;
+}
+
+.route::before {
+  position: absolute;
+  top: 0.8rem;
+  bottom: 0.8rem;
+  left: 0.3rem;
+  border-left: 1px dashed #525b67;
+  content: '';
+}
+
+.route__stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.65rem minmax(0, 1fr);
+  min-width: 0;
+  gap: 0.75rem;
+}
+
+.route__marker {
+  z-index: 1;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-top: 0.3rem;
+  background: #1a1f27;
+  border: 2px solid #f4c430;
+  border-radius: 50%;
+}
+
+.route__marker--dropoff {
+  background: #f4c430;
+}
+
+.route__content,
+p {
+  min-width: 0;
+  margin: 0;
+}
+
+.route__label {
+  color: #7e8794;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.route__address {
+  display: -webkit-box;
+  margin-top: 0.2rem;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+time {
+  display: block;
+  margin-top: 0.2rem;
+  color: #929aa6;
+  font-size: 0.7rem;
+}
+
+@media (max-width: 359px) {
+  .route {
+    gap: 0.8rem;
+  }
+
+  .route__stop {
+    gap: 0.55rem;
+  }
+
+  .route__address {
+    font-size: 0.74rem;
+  }
+}

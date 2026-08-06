@@ -1,0 +1,18 @@
+<article class="order-card">
+  <a class="order-card__link" [routerLink]="['/orders', order().id]">
+    <header class="order-card__header">
+      <div class="order-card__identity">
+        <app-avatar [imageUrl]="order().driverThumbnailUrl" />
+        <div class="order-card__titles">
+          <h2>Order #{{ order().orderNumber }}</h2>
+          <p>{{ order().type }}</p>
+        </div>
+      </div>
+      <span class="status">{{ order().statusLabel }}</span>
+    </header>
+
+    <app-order-route [destinations]="order().destinations" />
+
+    <span class="order-card__action">View order</span>
+  </a>
+</article>

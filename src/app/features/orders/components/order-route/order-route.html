@@ -1,0 +1,27 @@
+<div class="route">
+  @if (pickup(); as pickupStop) {
+    <section class="route__stop">
+      <span class="route__marker route__marker--pickup" aria-hidden="true"></span>
+      <div class="route__content">
+        <p class="route__label">Pickup</p>
+        <p class="route__address" [title]="pickupStop.address">{{ pickupStop.address }}</p>
+        <time [attr.datetime]="pickupStop.startsAt.toISOString()">
+          {{ pickupStop.startsAt | date: 'MMM d, y · h:mm a' }}
+        </time>
+      </div>
+    </section>
+  }
+
+  @if (dropoff(); as dropoffStop) {
+    <section class="route__stop">
+      <span class="route__marker route__marker--dropoff" aria-hidden="true"></span>
+      <div class="route__content">
+        <p class="route__label">Dropoff</p>
+        <p class="route__address" [title]="dropoffStop.address">{{ dropoffStop.address }}</p>
+        <time [attr.datetime]="dropoffStop.startsAt.toISOString()">
+          {{ dropoffStop.startsAt | date: 'MMM d, y · h:mm a' }}
+        </time>
+      </div>
+    </section>
+  }
+</div>

@@ -15,6 +15,14 @@ export const routes: Routes = [
     title: 'Pedidos | BeGo',
   },
   {
+    path: 'orders/:orderId',
+    loadComponent: () =>
+      import('./features/orders/pages/order-detail-page/order-detail-page').then(
+        ({ OrderDetailPage }) => OrderDetailPage,
+      ),
+    title: 'Detalle del pedido | BeGo',
+  },
+  {
     path: '**',
     redirectTo: 'orders',
   },

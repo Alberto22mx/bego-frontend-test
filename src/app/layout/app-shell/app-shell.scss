@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background: #080b10;
+}
+
+.app-shell {
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+  margin-inline: auto;
+  overflow-x: clip;
+  background: #11151c;
+}
+
+@media (min-width: 421px) {
+  :host {
+    padding-block: 1.5rem;
+  }
+
+  .app-shell {
+    max-width: 420px;
+    min-height: calc(100dvh - 3rem);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 45%);
+  }
+}
